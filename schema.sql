@@ -5,8 +5,11 @@ CREATE TABLE cached (
             );
 CREATE TABLE exploits (
                 exploit_id INTEGER PRIMARY KEY,
-                name TEXT,
-                metasploit TEXT
+                name TEXT
+            );
+CREATE TABLE metasploits (
+                metasploit_id INTEGER PRIMARY KEY,
+                name TEXT
             );
 CREATE TABLE cves (
                 cve_id TEXT PRIMARY KEY,
@@ -31,12 +34,19 @@ CREATE TABLE affected (
                     REFERENCES products (product_id),
                 PRIMARY KEY (cve_id, product_id)
             );
-CREATE TABLE referenced (
+CREATE TABLE referenced_metasploit (
                 cve_id TEXT,
-                exploit_id INTEGER,
+                metasploit_id INTEGER,
                 FOREIGN KEY (cve_id)
                     REFERENCES cves (cve_id),
-                FOREIGN KEY (exploit_id)
-                    REFERENCES exploits (exploit_id),
-                PRIMARY KEY (cve_id, exploit_id)
+                FOREIGN KEY (metasploit_id)
+                    REFERENCES metasploits (metasploit_id),
+                PRIMARY KEY (cve_id, metasploit_id)
             );
+CREATE TABLE IF NOT EXISTS "referenced_exploit" (
+	"cve_id"	TEXT,
+	"exploit_id"	INTEGER,
+	FOREIGN KEY("exploit_id") REFERENCES "exploits"("exploit_id"),
+	FOREIGN KEY("cve_id") REFERENCES "cves"("cve_id"),
+	PRIMARY KEY("cve_id","exploit_id")
+);
