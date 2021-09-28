@@ -34,6 +34,30 @@ CREATE TABLE affected (
                     REFERENCES products (product_id),
                 PRIMARY KEY (cve_id, product_id)
             );
+CREATE TABLE multiaffected (
+                cve_id TEXT,
+                product_id INT,
+                versionStartIncluding TEXT,
+                versionStartExcluding TEXT,
+                versionEndIncluding TEXT,
+                versionEndExcluding TEXT,
+                FOREIGN KEY (cve_id)
+                    REFERENCES cves (cve_id),
+                FOREIGN KEY (product_id)
+                    REFERENCES products (product_id),
+                PRIMARY KEY (cve_id, product_id,
+                             versionStartIncluding, versionStartExcluding,
+                             versionEndIncluding, versionEndExcluding)
+            );
+CREATE TABLE referenced_exploit (
+                cve_id TEXT,
+                exploit_id INTEGER,
+                FOREIGN KEY (cve_id)
+                    REFERENCES cves (cve_id),
+                FOREIGN KEY (exploit_id)
+                    REFERENCES exploits (exploit_id),
+                PRIMARY KEY (cve_id, exploit_id)
+            );
 CREATE TABLE referenced_metasploit (
                 cve_id TEXT,
                 metasploit_id INTEGER,
@@ -43,10 +67,3 @@ CREATE TABLE referenced_metasploit (
                     REFERENCES metasploits (metasploit_id),
                 PRIMARY KEY (cve_id, metasploit_id)
             );
-CREATE TABLE IF NOT EXISTS "referenced_exploit" (
-	"cve_id"	TEXT,
-	"exploit_id"	INTEGER,
-	FOREIGN KEY("exploit_id") REFERENCES "exploits"("exploit_id"),
-	FOREIGN KEY("cve_id") REFERENCES "cves"("cve_id"),
-	PRIMARY KEY("cve_id","exploit_id")
-);
