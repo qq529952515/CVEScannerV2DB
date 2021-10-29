@@ -13,6 +13,8 @@ sqlite> .read data_0.sql
 sqlite> .read data_1.sql
 sqlite> .read data_2.sql
 sqlite> .read data_3.sql
+sqlite> .read data_4.sql
+sqlite> .read data_5.sql
 ```
 
 # License
