@@ -1,8 +1,19 @@
 # Description
-Repository containing the .sql files of a semi-updated database used in [CVEScannerV2](https://github.com/scmanjarrez/CVEScannerV2).
+Repository containing the .sql files of a semi-updated database
+used in [CVEScannerV2](https://github.com/scmanjarrez/CVEScannerV2).
 
-# Import
-In order to import the .sql files, it is recommended to use built-in sqlite3 command **.read**:
+# Database generation
+## Automatic
+We created a bash script to automate the database creation process.
+Run **build.sh** script.
+
+```bash
+$ ./build.sh
+```
+
+## Manual
+If you want to create the database manually, we recommend to use
+_sqlite3_ and the built-in command **.read**:
 
 ```bash
 $ sqlite3 cve.db < schema.sql
@@ -12,9 +23,7 @@ Enter ".help" for usage hints.
 sqlite> .read data_0.sql
 sqlite> .read data_1.sql
 sqlite> .read data_2.sql
-sqlite> .read data_3.sql
-sqlite> .read data_4.sql
-sqlite> .read data_5.sql
+<repeate-for-every-data_*.sql>
 ```
 
 # License
