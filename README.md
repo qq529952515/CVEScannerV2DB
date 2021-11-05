@@ -23,7 +23,7 @@ Enter ".help" for usage hints.
 sqlite> .read data_0.sql
 sqlite> .read data_1.sql
 sqlite> .read data_2.sql
-<repeate-for-every-data_*.sql>
+<repeat for every data_*.sql>
 ```
 
 # License
